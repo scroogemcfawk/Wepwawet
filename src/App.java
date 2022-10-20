@@ -8,7 +8,8 @@ import java.io.IOException;
  * @author scroogemcfawk
  * @version v0.0.2
  */
-public class Wepwawet {
+public class App
+{
     public static void main(String[] args) throws IOException {
         String s = Logging.ANSI_RED;
     }
