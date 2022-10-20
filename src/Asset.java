@@ -1,3 +1,7 @@
+/**
+ * The {@code Asset} class represents some market stock that has its name, ticker and price.
+ * @since v0.0.1
+ */
 public class Asset {
 
     final private String ticker;

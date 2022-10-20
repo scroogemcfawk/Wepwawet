@@ -1,19 +1,26 @@
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import scroogemcfawk.Logging;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/** The {@code Parser} class is intended to get the price value of a given {@link Asset}
- *
- * @since  0.0.1
+/**
+ * The {@code Parser} class is intended to get the price value of a given {@link Asset}
+ * @since 0.0.1
  */
+
 public class Parser {
 
-    final private static String[] urls = new String[] {"https://www.tinkoff.ru/invest/recommendations/?query=%s",
-            "https://www.tinkoff.ru/invest/stocks/%s/",};
+    final private static String[] urls = new String[] {
+            "https://www.tinkoff.ru/invest/recommendations/?query=%s",
+            "https://www.tinkoff.ru/invest/stocks/%s/",
+    };
 
     public static int ping(URL url) throws IOException {
         var connection = (HttpURLConnection) url.openConnection();
@@ -21,10 +28,10 @@ public class Parser {
         return connection.getResponseCode();
     }
 
-    public static double parse(String url, Asset asset) throws IOException {
-        URL target = new URL(url.formatted(asset.getTicker()));
-//        System.out.println(target);
-        if (ping(target) == 200) {
+    public static double parse(Asset asset) throws IOException {
+        URL target = new URL(urls[1].formatted(asset.getTicker()));
+        int answer;
+        if ((answer = ping(target)) == 200) {
             Document doc = Jsoup.connect(target.toString()).get();
             Elements container = doc.select(".SecurityInvitingScreen__price_FSP8P");
 
@@ -32,33 +39,27 @@ public class Parser {
                 for (Element element : container) {
                     String rep = element.text();
                     String res = rep.substring(0, rep.length() - 2).replace(',', '.');
-                    res = res.replaceAll("\\s","");
-//                    System.out.println(Logging.yellow(res));
+                    res = res.replaceAll("\\s", "");
+
+                    Logger.getGlobal().info(res);
+
                     return Double.parseDouble(res);
                 }
             } else {
                 System.out.println(Logging.red("Container element count is not 1"));
             }
         }
-        throw new IOException();
+        throw new HttpStatusException("Bad server response", answer, target.toString());
     }
 
 
     public static void main(String[] args) throws IOException {
-        String[] tickers = new String[] {
-                "SBERP",
-                "FLWS",
-                "DDD",
-                "TSVT",
-                "NVR",
-                "AZO",
-                "Y",
-                "CABO",
-                "NFLX",
-        };
+        Logger.getGlobal().setLevel(Level.OFF);
+        String[] tickers = new String[] {"SBERP", "FLWS", "DDD", "TSVT", "NVR", "AZO", "Y", "CABO", "NFLX",};
         var assets = Asset.fromArray(tickers);
-        for (var a : assets) {
-            System.out.println(a.getTicker() + ": " + parse(urls[1], a));
+        for (Asset asset: assets) {
+            Parser.parse(asset);
         }
+
     }
 }
