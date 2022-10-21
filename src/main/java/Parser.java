@@ -19,7 +19,7 @@ public class Parser {
 
     final private static String[] urls = new String[] {
             "https://www.tinkoff.ru/invest/recommendations/?query=%s",
-            "https://www.tinkoff.ru/invest/stocks/%s/",
+            "https://www.tinkoff.ru/invest/",
     };
 
     public static int ping(URL url) throws IOException {
@@ -29,24 +29,42 @@ public class Parser {
     }
 
     public static double parse(Asset asset) throws IOException {
-        URL target = new URL(urls[1].formatted(asset.getTicker()));
+        String url = urls[1];
+        if (asset.getTicker().matches("FX..+")) {
+            url += "etfs/";
+        }
+        else if (asset.getTicker().matches("\\w+\\d+.*")) {
+            url += "bonds/";
+        }
+        else {
+            url += "stocks/";
+        }
+        url += asset.getTicker() + "/";
+
+        URL target = new URL(url);
         int answer;
         if ((answer = ping(target)) == 200) {
-            Document doc = Jsoup.connect(target.toString()).get();
-            Elements container = doc.select(".SecurityInvitingScreen__price_FSP8P");
+            try {
+                Document doc = Jsoup.connect(target.toString()).get();
+                Elements container = doc.select(".SecurityInvitingScreen__price_FSP8P");
 
-            if (container.size() == 1) {
-                for (Element element : container) {
-                    String rep = element.text();
-                    String res = rep.substring(0, rep.length() - 2).replace(',', '.');
-                    res = res.replaceAll("\\s", "");
+                if (container.size() == 1) {
+                    for (Element element : container) {
+                        String rep = element.text();
+                        String res = rep.substring(0, rep.length() - 2).replace(',', '.');
+                        res = res.replaceAll("\\s", "");
 
-                    Logger.getGlobal().info(res);
+                        Logger.getGlobal().log(Level.INFO, res);
 
-                    return Double.parseDouble(res);
+                        return Double.parseDouble(res);
+                    }
+                } else {
+                    System.out.println(Logging.red("Container element count is not 1"));
                 }
-            } else {
-                System.out.println(Logging.red("Container element count is not 1"));
+            } catch (IOException e) {
+                ParsingException rethrow = new ParsingException("Couldn't parse " + asset.getTicker() + " at " + url);
+                rethrow.initCause(e);
+                throw rethrow;
             }
         }
         throw new HttpStatusException("Bad server response", answer, target.toString());
