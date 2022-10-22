@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>Wepwawet</artifactId>
-    <version>v0.1.2</version>
+    <version>v0.1.3</version>
 
     <dependencies>
         <dependency>
