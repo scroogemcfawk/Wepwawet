@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>Wepwawet</artifactId>
-    <version>v0.1.1</version>
+    <version>v0.1.2</version>
 
     <dependencies>
         <dependency>
@@ -28,6 +28,12 @@
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
             <version>1.15.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>20.1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
