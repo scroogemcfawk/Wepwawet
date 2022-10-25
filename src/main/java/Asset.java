@@ -19,7 +19,8 @@ public class Asset
         this.price = price;
     }
 
-    Asset(String ticker, double price) {
+    Asset(String ticker, double price)
+    {
         this(ticker, Market.Unknown, price);
     }
 
@@ -43,7 +44,8 @@ public class Asset
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(double price)
+    {
         this.price = price;
     }
 
@@ -53,14 +55,16 @@ public class Asset
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return new String(ticker.toString() + ": " + price);
     }
 
     public static Asset[] fromArray(String[] assets)
     {
         Asset[] result = new Asset[assets.length];
-        for (int i = 0; i < assets.length; i++) {
+        for (int i = 0; i < assets.length; i++)
+        {
             result[i] = new Asset(assets[i]);
         }
         return result;

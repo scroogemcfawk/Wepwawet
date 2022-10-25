@@ -7,7 +7,9 @@ import java.io.IOException;
 public class ParsingException extends IOException
 {
     ParsingException() {}
-    ParsingException(String gripe) {
+
+    ParsingException(String gripe)
+    {
         super(gripe);
     }
 }

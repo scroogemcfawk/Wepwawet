@@ -7,7 +7,9 @@ import java.io.IOException;
 public class FetchingException extends IOException
 {
     FetchingException() {}
-    FetchingException(String gripe) {
+
+    FetchingException(String gripe)
+    {
         super(gripe);
     }
 }

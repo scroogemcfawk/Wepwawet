@@ -1,4 +1,5 @@
 @SuppressWarnings("unused")
-public enum Market {
+public enum Market
+{
     NYSE, NASDAQ, SSE, MOEX, SPBE, Unknown
 }

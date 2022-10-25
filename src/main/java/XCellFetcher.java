@@ -4,13 +4,13 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.LoggerFactory;
 import scroogemcfawk.Logging;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 /**
  * This piece of shit (MS Excel) is finally can be read by my program! <br><br>
@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 
 public class XCellFetcher
 {
+    private static final Logger logger = LoggerFactory.getLogger(XCellFetcher.class);
     private static String startCell;
     private static String endCell;
     private static String inputFileAbsolutePath;
@@ -30,15 +31,16 @@ public class XCellFetcher
     static
     {
         System.out.println("XCellFetcher is loaded");
+
     }
 
-    public static void pr()
+    public static void logState()
     {
-        System.out.println("Start row: " + startCell.replaceAll("[a-zA-Z]+", ""));
-        System.out.println("Start col: " + startCell.replaceAll("\\d+", ""));
-        System.out.println("End row: " + endCell.replaceAll("[a-zA-Z]+", ""));
-        System.out.println("End col: " + endCell.replaceAll("\\d+", ""));
-        System.out.println("Filepath: " + inputFileAbsolutePath);
+        logger.trace("Start row: {}", startCell.replaceAll("[a-zA-Z]+", ""));
+        logger.trace("Start col: {}", startCell.replaceAll("\\d+", ""));
+        logger.trace("End row: {}", endCell.replaceAll("[a-zA-Z]+", ""));
+        logger.trace("End col: {}", endCell.replaceAll("\\d+", ""));
+        logger.trace("Filepath: {}", inputFileAbsolutePath);
     }
 
     public static void initFetcher() throws IOException
@@ -132,8 +134,8 @@ public class XCellFetcher
         //        for (Asset asset: assets) {
         //            System.out.println(asset + " -> " + Logging.red("" + Parser.parse(asset)));
         //        }
-        initFetcher();
-        XCellFetcher.pr();
+        initFetcher("c1", "c2", "C:\\Users\\scroo\\IdeaProjects\\Wepwawet\\io\\FinanceWorkbook.xlsx");
+        XCellFetcher.logState();
     }
 }
 

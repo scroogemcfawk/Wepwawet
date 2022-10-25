@@ -1,6 +1,8 @@
 package scroogemcfawk;
+
 @SuppressWarnings("unused")
-public class Logging {
+public class Logging
+{
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";
     public static final String ANSI_RED = "\u001B[31m";
@@ -11,35 +13,43 @@ public class Logging {
     public static final String ANSI_CYAN = "\u001B[36m";
     public static final String ANSI_WHITE = "\u001B[37m";
 
-    public static String black(String s) {
+    public static String black(String s)
+    {
         return ANSI_BLACK + s + ANSI_RESET;
     }
 
-    public static String red(String s) {
+    public static String red(String s)
+    {
         return ANSI_RED + s + ANSI_RESET;
     }
 
-    public static String green(String s) {
+    public static String green(String s)
+    {
         return ANSI_GREEN + s + ANSI_RESET;
     }
 
-    public static String yellow(String s) {
+    public static String yellow(String s)
+    {
         return ANSI_YELLOW + s + ANSI_RESET;
     }
 
-    public static String blue(String s) {
+    public static String blue(String s)
+    {
         return ANSI_BLUE + s + ANSI_RESET;
     }
 
-    public static String purple(String s) {
+    public static String purple(String s)
+    {
         return ANSI_PURPLE + s + ANSI_RESET;
     }
 
-    public static String cyan(String s) {
+    public static String cyan(String s)
+    {
         return ANSI_CYAN + s + ANSI_RESET;
     }
 
-    public static String white(String s) {
+    public static String white(String s)
+    {
         return ANSI_WHITE + s + ANSI_RESET;
     }
 }
