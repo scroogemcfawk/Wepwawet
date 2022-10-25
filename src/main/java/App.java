@@ -7,7 +7,7 @@ import java.io.IOException;
  * MS Excel table, because seeing manual updating is quite depressive.
  *
  * @author scroogemcfawk
- * @version v0.2.1
+ * @version v0.3.0
  */
 public class App
 {
