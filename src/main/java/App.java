@@ -1,4 +1,4 @@
-import scroogemcfawk.Logging;
+import scroogemcfawk.Color;
 
 import java.io.IOException;
 
@@ -7,12 +7,12 @@ import java.io.IOException;
  * MS Excel table, because seeing manual updating is quite depressive.
  *
  * @author scroogemcfawk
- * @version v0.2.0
+ * @version v0.2.1
  */
 public class App
 {
     public static void main(String[] args) throws IOException
     {
-        String s = Logging.ANSI_RED;
+        String s = Color.ANSI_RED;
     }
 }

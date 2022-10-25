@@ -57,7 +57,7 @@ public class Asset
     @Override
     public String toString()
     {
-        return new String(ticker.toString() + ": " + price);
+        return "Asset[ticker=%s,market=%s,price=%.2f]".formatted(ticker, market, price);
     }
 
     public static Asset[] fromArray(String[] assets)
