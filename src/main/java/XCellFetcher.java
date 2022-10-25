@@ -10,7 +10,9 @@ import scroogemcfawk.Logging;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import org.slf4j.Logger;
+
 
 /**
  * This piece of shit (MS Excel) is finally can be read by my program! <br><br>
@@ -36,11 +38,12 @@ public class XCellFetcher
 
     public static void logState()
     {
-        logger.trace("Start row: {}", startCell.replaceAll("[a-zA-Z]+", ""));
-        logger.trace("Start col: {}", startCell.replaceAll("\\d+", ""));
-        logger.trace("End row: {}", endCell.replaceAll("[a-zA-Z]+", ""));
-        logger.trace("End col: {}", endCell.replaceAll("\\d+", ""));
-        logger.trace("Filepath: {}", inputFileAbsolutePath);
+        logger.info("Cells: {}{} - {}{} at file: {}",
+                    startCell.replaceAll("[a-zA-Z]+", ""),
+                    startCell.replaceAll("\\d+", ""),
+                    endCell.replaceAll("[a-zA-Z]+", ""),
+                    endCell.replaceAll("\\d+", ""),
+                    inputFileAbsolutePath);
     }
 
     public static void initFetcher() throws IOException
@@ -71,7 +74,9 @@ public class XCellFetcher
 
     public static void initFetcher(String startCell, String endCell, String inputFileAbsolutePath) throws IOException
     {
-        if (startCell.matches("[a-zA-Z]+\\d+") && endCell.matches("[a-zA-Z]+\\d+") && startCell.replaceAll("\\d", "").equals(endCell.replaceAll("\\d", "")))
+        if (startCell.matches("[a-zA-Z]+\\d+") && endCell.matches("[a-zA-Z]+\\d+") && startCell.replaceAll("\\d",
+                                                                                                           "").equals(
+                endCell.replaceAll("\\d", "")))
         {
             XCellFetcher.startCell = startCell;
             XCellFetcher.endCell = endCell;
@@ -129,11 +134,9 @@ public class XCellFetcher
 
     public static void main(String[] args) throws IOException
     {
-        //        Logger.getGlobal().setLevel(Level.OFF);
-        //        ArrayList<Asset> assets = fetch("./io/FinanceWorkbook.xlsx");
-        //        for (Asset asset: assets) {
-        //            System.out.println(asset + " -> " + Logging.red("" + Parser.parse(asset)));
-        //        }
+        logger.trace("" + logger.isTraceEnabled()); // LOL XD BRO
+
+
         initFetcher("c1", "c2", "C:\\Users\\scroo\\IdeaProjects\\Wepwawet\\io\\FinanceWorkbook.xlsx");
         XCellFetcher.logState();
     }
