@@ -3,7 +3,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import scroogemcfawk.Logging;
+import scroogemcfawk.Color;
 
 import java.io.IOException;
 import java.net.*;
@@ -71,7 +71,7 @@ public class Parser
                 }
                 else
                 {
-                    System.out.println(Logging.red("Container element count is not 1"));
+                    System.out.println(Color.red("Container element count is not 1"));
                 }
             }
             catch (IOException e)
