@@ -156,13 +156,13 @@ public class XCellProcessor
         }
         catch (IOException e)
         {
-            FetchingException rethrow = new FetchingException("File exception during fetching");
+            FetchingException rethrow = new FetchingException("File exception at fetching");
             rethrow.initCause(e);
             throw rethrow;
         }
     }
 
-    public static void place(ArrayList<Asset> assets) throws FetchingException
+    public static void insert(ArrayList<Asset> assets) throws FetchingException
     {
         if (!isInit)
         {
@@ -170,11 +170,11 @@ public class XCellProcessor
         }
         try (FileOutputStream out = new FileOutputStream(file))
         {
-
+            
         }
         catch (IOException e)
         {
-            FetchingException rethrow = new FetchingException("File exception during placing");
+            FetchingException rethrow = new FetchingException("File exception at insert");
             rethrow.initCause(e);
             throw rethrow;
         }

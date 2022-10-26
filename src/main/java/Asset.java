@@ -54,6 +54,10 @@ public class Asset
         return 0;
     }
 
+    public Asset copy(Asset a) {
+        return new Asset(a.ticker, a.market, a.price);
+    }
+
     @Override
     public String toString()
     {
