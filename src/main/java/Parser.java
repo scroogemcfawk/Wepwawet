@@ -3,12 +3,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import scroogemcfawk.Color;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The {@code Parser} class is intended to get the price value of a given {@link Asset}
@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 
 public class Parser
 {
+    private static final Logger logger = LoggerFactory.getLogger(Parser.class);
 
     final private static String[] urls = new String[] {
             "https://www.tinkoff.ru/invest/recommendations/?query=%s"
@@ -64,7 +65,7 @@ public class Parser
                         String res = rep.substring(0, rep.length() - 2).replace(',', '.');
                         res = res.replaceAll("\\s", "");
 
-                        Logger.getGlobal().log(Level.INFO, res);
+                        logger.debug(res);
 
                         return Double.parseDouble(res);
                     }
@@ -87,7 +88,6 @@ public class Parser
 
     public static void main(String[] args) throws IOException
     {
-        Logger.getGlobal().setLevel(Level.OFF);
         String[] tickers = new String[] {"SBERP", "FLWS", "DDD", "TSVT", "NVR", "AZO", "Y", "CABO", "NFLX",};
         var assets = Asset.fromArray(tickers);
         for (Asset asset: assets)

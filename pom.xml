@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>Wepwawet</artifactId>
-    <version>v0.4.0</version>
+    <version>v0.4.1</version>
 
     <properties>
         <maven.compiler.source>19</maven.compiler.source>

@@ -40,9 +40,8 @@ public class XCellProcessor
 
     static
     {
-        logger.info("XCellFetcher is loaded");
+        logger.debug("XCellFetcher is loaded");
     }
-
 
     /**
      * @return all filed values
@@ -128,6 +127,7 @@ public class XCellProcessor
             new FileInputStream(inputFileAbsolutePath).close();
             XCellProcessor.file = inputFileAbsolutePath;
             isInit = true;
+            logger.debug("XCellFetcher is initialized: " + getState());
         }
         catch (FileNotFoundException e)
         {
@@ -149,7 +149,7 @@ public class XCellProcessor
         }
         try (FileInputStream in = new FileInputStream(file))
         {
-            logger.info("Fetching" + getState());
+            logger.debug("Fetching" + getState());
             ArrayList<Asset> res = new ArrayList<>(endRow - startRow);
             Workbook wb = new XSSFWorkbook(in);
             Sheet sh = wb.getSheetAt(0);
@@ -192,20 +192,20 @@ public class XCellProcessor
         }
         try (FileInputStream in = new FileInputStream(file))
         {
-            logger.info("Inserting" + getState());
+            logger.debug("Inserting" + getState());
             Workbook wb = new XSSFWorkbook(in);
             Sheet sh = wb.getSheetAt(0);
             try (FileOutputStream out = new FileOutputStream(file))
             {
                 for (Asset asset: assets)
                 {
-                    logger.info("Inserting: " + asset);
+                    logger.debug("Inserting: " + asset);
                     for (int i = startRow; i < endRow; i++)
                     {
-                        logger.info("Trying row " + i);
+                        logger.debug("Trying row " + i);
                         Row r = sh.getRow(i);
                         Cell c = r.getCell(CellReference.convertColStringToIndex(tickerColumn));
-                        logger.info(c.getStringCellValue());
+                        logger.debug(c.getStringCellValue());
                         if (c.getStringCellValue().equals(asset.getTicker()))
                         {
                             r.getCell(CellReference.convertColStringToIndex(priceColumn)).setCellValue(asset.getPrice());
@@ -231,11 +231,8 @@ public class XCellProcessor
         initProcessor("C9", "C45", "F", "C:\\Users\\scroo\\IdeaProjects\\Wepwawet\\io\\FinanceWorkbook.xlsx");
         if (XCellProcessor.isInit)
         {
-            logger.info("YeeHaw");
             ArrayList<Asset> assets = new ArrayList<>(1);
             assets.add(0, new Asset("AFLT", 1.0));
-
-            logger.info("" + assets.size());
 
             for (Asset asset: assets)
             {
