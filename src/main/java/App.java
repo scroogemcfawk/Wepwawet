@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  * MS Excel table, because seeing manual updating is quite depressive.
  *
  * @author scroogemcfawk
- * @version v0.5.0-alpha
+ * @version v0.5.1-alpha
  */
 public class App
 {
@@ -28,7 +28,7 @@ public class App
         ArrayList<Asset> assets = XCellProcessor.fetch();
         var startTime = System.nanoTime();
 
-
+        // FIXME: for some reason 6 threads work much faster than 8 or 5
         try (ExecutorService threads = Executors.newFixedThreadPool(6))
         {
             for (Asset asset: assets)
