@@ -3,7 +3,7 @@
  *
  * @since v0.0.1
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "FieldMayBeFinal"})
 public class Asset
 {
 
@@ -44,9 +44,10 @@ public class Asset
         return price;
     }
 
-    public void setPrice(double price)
+    public double setPrice(double price)
     {
         this.price = price;
+        return price;
     }
 
     public double parsePrice(Parser p)
