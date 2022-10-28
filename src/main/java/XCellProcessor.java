@@ -43,6 +43,10 @@ public class XCellProcessor
         logger.debug("XCellFetcher is loaded");
     }
 
+    public static boolean getFlag() {
+        return isInit;
+    }
+
     /**
      * @return all filed values
      */
