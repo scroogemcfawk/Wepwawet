@@ -9,7 +9,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * The {@code Wepwawet} class is used to automatically update stock prices of my mom's
+ * The {@code wepwawet} class is used to automatically update stock prices of my mom's
  * MS Excel table, because seeing manual updating is quite depressive.
  *
  * @author scroogemcfawk
