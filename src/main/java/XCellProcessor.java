@@ -34,9 +34,11 @@ public class XCellProcessor
     private static int startRow;
     private static int endRow;
 
+    // FIXME: not needed
+    @Deprecated
     private static final int maxRow = 45;
 
-    private static boolean isInit = false;
+    private static boolean initFlag = false;
 
     static
     {
@@ -44,7 +46,7 @@ public class XCellProcessor
     }
 
     public static boolean getFlag() {
-        return isInit;
+        return initFlag;
     }
 
     /**
@@ -57,7 +59,7 @@ public class XCellProcessor
                                                                                                                   priceColumn,
                                                                                                                   startRow,
                                                                                                                   endRow,
-                                                                                                                  isInit);
+                                                                                                                  initFlag);
     }
 
     /**
@@ -87,9 +89,7 @@ public class XCellProcessor
         catch (IOException e)
         {
             logger.info(Color.red("Failed to init the fetcher"));
-            var rethrow = new IOException("initFetcher(String, String, String, String) failed");
-            rethrow.initCause(e);
-            throw rethrow;
+            throw new IOException("initFetcher(String, String, String, String) failed", e);
         }
     }
 
@@ -130,7 +130,7 @@ public class XCellProcessor
         {
             new FileInputStream(inputFileAbsolutePath).close();
             XCellProcessor.file = inputFileAbsolutePath;
-            isInit = true;
+            initFlag = true;
             logger.debug("XCellFetcher is initialized: " + getState());
         }
         catch (FileNotFoundException e)
@@ -147,7 +147,7 @@ public class XCellProcessor
      */
     public static @NotNull ArrayList<Asset> fetch() throws XCellProcException
     {
-        if (!isInit)
+        if (!initFlag)
         {
             throw new XCellProcException("Fetcher is not initialized");
         }
@@ -190,7 +190,7 @@ public class XCellProcessor
      */
     public static void insert(ArrayList<Asset> assets) throws XCellProcException
     {
-        if (!isInit)
+        if (!initFlag)
         {
             throw new XCellProcException("Fetcher is not initialized");
         }
@@ -233,7 +233,7 @@ public class XCellProcessor
         logger.trace("" + logger.isTraceEnabled()); // LOL XD BRO
 
         initProcessor("C9", "C45", "F", "C:\\Users\\scroo\\IdeaProjects\\Wepwawet\\io\\FinanceWorkbook.xlsx");
-        if (XCellProcessor.isInit)
+        if (XCellProcessor.initFlag)
         {
             ArrayList<Asset> assets = new ArrayList<>(1);
             assets.add(0, new Asset("AFLT", 1.0));

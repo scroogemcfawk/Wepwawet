@@ -3,6 +3,7 @@
  *
  * @since v0.0.1
  */
+
 @SuppressWarnings({"unused", "FieldMayBeFinal"})
 public class Asset
 {
@@ -34,9 +35,9 @@ public class Asset
         return ticker;
     }
 
-    public String getMarket()
+    public Market getMarket()
     {
-        return market.toString();
+        return market;
     }
 
     public double getPrice()
@@ -49,7 +50,8 @@ public class Asset
         this.price = price;
         return price;
     }
-
+    // FIXME: delete this shit
+    @Deprecated
     public double parsePrice(Parser p)
     {
         return 0;

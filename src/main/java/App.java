@@ -17,6 +17,10 @@ import java.util.concurrent.Executors;
  */
 public class App
 {
+    /* TODO:
+     *  - make PriceParser interface | maybe inherit PriceParser from Parser idk
+     *  - make Asset abstract then inherit Stock, refactor
+     * */
     static private final Logger logger = LoggerFactory.getLogger(App.class);
 
     public static void main(String[] args) throws IOException
@@ -28,7 +32,7 @@ public class App
         ArrayList<Asset> assets = XCellProcessor.fetch();
         var startTime = System.nanoTime();
 
-        // FIXME: for some reason 6 threads work much faster than 8 or 5
+        // TODO: for some reason 6 threads work much faster than 8 or 5
         try (ExecutorService threads = Executors.newFixedThreadPool(6))
         {
             for (Asset asset: assets)
@@ -72,11 +76,14 @@ public class App
         Scanner in = new Scanner(System.in);
         String ans = in.nextLine().strip();
         ans = ans.substring(0, 1).toLowerCase();
-        if (ans.equals("y")) {
-            try {
+        if (ans.equals("y"))
+        {
+            try
+            {
                 XCellProcessor.insert(assets);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 System.out.println("Can not save changes");
             }
         }

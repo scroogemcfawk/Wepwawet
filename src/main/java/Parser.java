@@ -49,8 +49,8 @@ public class Parser
         url += asset.getTicker() + "/";
 
         URL target = new URL(url);
-        int answer;
-        if ((answer = ping(target)) == 200)
+        int response;
+        if ((response = ping(target)) == 200) // not sure if it's necessary FIXME
         {
             try
             {
@@ -82,7 +82,7 @@ public class Parser
                 throw rethrow;
             }
         }
-        throw new HttpStatusException("Bad server response", answer, target.toString());
+        throw new HttpStatusException("Bad server response", response, target.toString());
     }
 
 
